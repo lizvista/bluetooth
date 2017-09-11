@@ -118,7 +118,9 @@ export default class App extends Component {
               this.setState({peripherals});
             }
             console.log('Connected to ' + peripheral.id);
-          }
+          }).catch((error) => {
+            console.log('Connection error', error);
+          });
         }
       }
     }
