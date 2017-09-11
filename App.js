@@ -103,6 +103,25 @@ export default class App extends Component {
           this.setState({ peripherals })
         }
     }
+
+    test(peripheral) {
+      if (peripheral){
+        if (peripheral.connected){
+          BleManager.disconnect(peripheral.id);
+        }else{
+          BleManager.connect(peripheral.id).then(() => {
+            let peripherals = this.state.peripherals;
+            let p = peripherals.get(peripheral.id);
+            if (p) {
+              p.connected = true;
+              peripherals.set(peripheral.id, p);
+              this.setState({peripherals});
+            }
+            console.log('Connected to ' + peripheral.id);
+          }
+        }
+      }
+    }
     
     render() {
         const list = Array.from(this.state.peripherals.values());
